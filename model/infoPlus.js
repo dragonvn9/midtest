@@ -1,10 +1,7 @@
 import mongoose from "mongoose";
 
 const infoPlusSchema = mongoose.Schema({
-    userId: {
-        type: String,
-        required: true
-    },
+    skills: String,
     hobbies: String,
     goals: String
    

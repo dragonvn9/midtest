@@ -39,7 +39,7 @@ const register = async (req, res) => {
         })
         await newUser.save()
 
-        res.status(200).send("ok")
+        res.status(200).send("registered successfully")
 
     } catch(err) { 
         res.status(400).send(err.message)

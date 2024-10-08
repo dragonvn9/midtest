@@ -4,7 +4,7 @@ import { createInfo, getInfoById} from "../controllers/infoController.js";
 const router = new Router();
 
 router.post("/create-info", createInfo)
-router.get("/info/:userId", getInfoById)
+router.get("/:idInfo", getInfoById)
 
 // router.post("/update-post", updatePost)
 // router.get("/", (req, res) => {

@@ -5,15 +5,11 @@ const createInfo = async (req, res) => {
         const {name, birthday, birthPlace, nationality, education} = req.body
         //console.log(req.body)
 
-        const { userId } = req.user.id
-        console.log(req.user)
-
         if (!name || !birthday || !birthPlace || !nationality || !education) {
             return res.status(400).send({ message: "All fields are required" });
         }
 
         const newInfo= await infoModel.create({
-            userId: userId,
             name: name,
             birthday: birthday,
             birthPlace: birthPlace,
@@ -22,7 +18,6 @@ const createInfo = async (req, res) => {
 
         })
         
-        //console.log(newInfo)
         return res.status(200).send({
             newInfo,
             message: "creat new info personal sucessfully"})
@@ -32,10 +27,10 @@ const createInfo = async (req, res) => {
 
     }
 }
-// Lấy thông tin cá nhân theo user ID
+// Lấy thông tin cá nhân theo id personal
 const getInfoById = async (req, res)=> {
     try {
-        const idInfo = req.params.userId
+        const idInfo = req.params.idInfo
         const info = await infoModel.findById(idInfo)
         if(!info){
             return res.status(404).send({message : "info not found"})
@@ -43,7 +38,7 @@ const getInfoById = async (req, res)=> {
 
         res.status(200).send({
             info,
-            message : "search successfull"
+            message : "search successfully"
 
         })
 
@@ -52,9 +47,30 @@ const getInfoById = async (req, res)=> {
 
     }
 }
+// cập nhật thông tin qua id info personal
+const updateInfoById = async (req, res) =>{
+    try {
+        const idInfo = req.params.idInfo
+        const updateInfo = await infoModel.findByIdAndUpdate(idInfo, req.body, {new: true})
+    
+        if(!updateInfo){
+            return res.status(404).send({
+                message: "Personal information does not exist"
+            })
+        }
+        res.status(200).send({
+            updateInfo,
+            message: "Personal information has been updated successfully!"
+        })
+
+    } catch(err){
+        res.status(500).send(err.message)
+    }
+}
 
 export {
     createInfo,
-    getInfoById
+    getInfoById,
+    updateInfoById
 
 }
