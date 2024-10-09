@@ -20,12 +20,31 @@ const createInfo = async (req, res) => {
         
         return res.status(200).send({
             newInfo,
-            message: "creat new info personal sucessfully"})
+            message: "create new info personal sucessfully"})
         
     } catch (err) {
         return res.status(400).send(err.message)
 
     }
+}
+// lấy tất cả thông tin cá nhân
+const getAllInfo = async (req, res) =>{
+    try{
+        const allInfo = await infoModel.find()
+        if(!allInfo) {
+            return res.status(404).send({
+                message: "No information available"
+            })
+        }
+        res.status(200).send({
+            allInfo,
+            message: "get all infomation personal successfull"
+        })
+
+    } catch(err){
+        res.status(500).send(err.message)
+    }
+
 }
 // Lấy thông tin cá nhân theo id personal
 const getInfoById = async (req, res)=> {
@@ -69,24 +88,31 @@ const updateInfoById = async (req, res) =>{
 }
 // xoá thông tin cá nhân theo id 
 const deleteInfoById = async (req, res) => {
-    const idInfo = req.params.idInfo
-    const deleteInfo = await infoModel.findByIdAndDelete(idInfo)
-    if(!deleteInfo) {
-        return res.status(404).send({
-            message: "Personal information does not exist"
+    try{
+        const idInfo = req.params.idInfo
+        const deleteInfo = await infoModel.findByIdAndDelete(idInfo)
+        if(!deleteInfo) {
+            return res.status(404).send({
+                message: "Personal information does not exist"
+            })
+        }
+        res.status(200).send({
+            deleteInfo,
+            message: "deleted infomation personal successfully"
+    
         })
-    }
-    res.status(200).send({
-        deleteInfo,
-        message: "deleted infomation personal successfully"
 
-    })
+    } catch(err) {
+        res.status(500).send(err.message)
+    }
+
 }
 
 export {
     createInfo,
     getInfoById,
     updateInfoById,
-    deleteInfoById
+    deleteInfoById,
+    getAllInfo
 
 }
