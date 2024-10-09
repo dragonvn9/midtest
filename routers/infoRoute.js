@@ -1,11 +1,12 @@
 import { Router } from "express"
-import { createInfo, getInfoById, updateInfoById} from "../controllers/infoController.js";
+import { createInfo, getInfoById, updateInfoById, deleteInfoById } from "../controllers/infoController.js";
 
 const router = new Router();
 
 router.post("/create-info", createInfo)
 router.get("/:idInfo", getInfoById)
 router.put("/:idInfo", updateInfoById)
+router.delete("/:idInfo", deleteInfoById)
 
 
 // router.post("/update-post", updatePost)

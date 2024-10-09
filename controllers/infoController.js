@@ -67,10 +67,26 @@ const updateInfoById = async (req, res) =>{
         res.status(500).send(err.message)
     }
 }
+// xoá thông tin cá nhân theo id 
+const deleteInfoById = async (req, res) => {
+    const idInfo = req.params.idInfo
+    const deleteInfo = await infoModel.findByIdAndDelete(idInfo)
+    if(!deleteInfo) {
+        return res.status(404).send({
+            message: "Personal information does not exist"
+        })
+    }
+    res.status(200).send({
+        deleteInfo,
+        message: "deleted infomation personal successfully"
+
+    })
+}
 
 export {
     createInfo,
     getInfoById,
-    updateInfoById
+    updateInfoById,
+    deleteInfoById
 
 }
