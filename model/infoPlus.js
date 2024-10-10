@@ -8,4 +8,4 @@ const infoPlusSchema = mongoose.Schema({
 })
 
 const infoPlusModel = mongoose.model("info_plus", infoPlusSchema)
-export default postModel
+export default infoPlusModel

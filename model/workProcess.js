@@ -1,16 +1,20 @@
 import mongoose from "mongoose";
 
 const workProcessSchema = mongoose.Schema({
-    userId: {
-        type: String,
-        required: true
-    },
     personal_skills: String,
-    personal_projects: String,
-    task: String,
-    duration : Date
-
+    personal_projects: {
+        project_name: String,
+        role : String,
+        start_time : Date,
+        end_time: Date
+    },
+    working_process: {
+        company_name: String,
+        role: String,
+        start_time : Date,
+        end_time: Date,
+    }
 })
 
 const workProcesModel = mongoose.model("work_process", workProcessSchema)
-export default postModel
+export default workProcesModel
